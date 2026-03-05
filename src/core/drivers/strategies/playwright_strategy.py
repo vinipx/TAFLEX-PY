@@ -56,12 +56,14 @@ class PlaywrightDriverStrategy(AutomationDriver):
         return self.page
 
     def navigate_to(self, url: str) -> None:
-        if not self.page: raise RuntimeError("Driver not initialized")
+        if not self.page:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"Navigating to: {url}")
         self.page.goto(url)
 
     def find_element(self, logical_name: str) -> PlaywrightElement:
-        if not self.page: raise RuntimeError("Driver not initialized")
+        if not self.page:
+            raise RuntimeError("Driver not initialized")
         selector = locator_manager.resolve(logical_name)
         locator = self.page.locator(selector)
         return PlaywrightElement(locator, logical_name)
@@ -76,7 +78,8 @@ class PlaywrightDriverStrategy(AutomationDriver):
             self.playwright.stop()
 
     def capture_screenshot(self, name: str) -> bytes:
-        if not self.page: raise RuntimeError("Driver not initialized")
+        if not self.page:
+            raise RuntimeError("Driver not initialized")
         screenshot = self.page.screenshot(full_page=True)
         logger.screenshot(name, screenshot)
         return screenshot

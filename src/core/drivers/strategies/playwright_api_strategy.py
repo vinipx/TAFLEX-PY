@@ -41,22 +41,26 @@ class PlaywrightApiStrategy(AutomationDriver):
         locator_manager.load(page_name)
 
     def get(self, endpoint: str, **kwargs) -> Any:
-        if not self.request_context: raise RuntimeError("Driver not initialized")
+        if not self.request_context:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"Playwright GET: {endpoint}")
         return self.request_context.get(endpoint, **kwargs)
 
     def post(self, endpoint: str, **kwargs) -> Any:
-        if not self.request_context: raise RuntimeError("Driver not initialized")
+        if not self.request_context:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"Playwright POST: {endpoint}")
         return self.request_context.post(endpoint, **kwargs)
 
     def put(self, endpoint: str, **kwargs) -> Any:
-        if not self.request_context: raise RuntimeError("Driver not initialized")
+        if not self.request_context:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"Playwright PUT: {endpoint}")
         return self.request_context.put(endpoint, **kwargs)
 
     def delete(self, endpoint: str, **kwargs) -> Any:
-        if not self.request_context: raise RuntimeError("Driver not initialized")
+        if not self.request_context:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"Playwright DELETE: {endpoint}")
         return self.request_context.delete(endpoint, **kwargs)
 

@@ -1,5 +1,5 @@
 import httpx
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from src.core.drivers.automation_driver import AutomationDriver
 from src.core.locators.locator_manager import locator_manager
 from src.core.utils.logger import logger
@@ -41,22 +41,26 @@ class HttpxApiStrategy(AutomationDriver):
         locator_manager.load(page_name)
 
     def get(self, endpoint: str, **kwargs) -> httpx.Response:
-        if not self.client: raise RuntimeError("Driver not initialized")
+        if not self.client:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"HTTPX GET: {endpoint}")
         return self.client.get(endpoint, **kwargs)
 
     def post(self, endpoint: str, json: Any = None, data: Any = None, **kwargs) -> httpx.Response:
-        if not self.client: raise RuntimeError("Driver not initialized")
+        if not self.client:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"HTTPX POST: {endpoint}")
         return self.client.post(endpoint, json=json, data=data, **kwargs)
 
     def put(self, endpoint: str, json: Any = None, data: Any = None, **kwargs) -> httpx.Response:
-        if not self.client: raise RuntimeError("Driver not initialized")
+        if not self.client:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"HTTPX PUT: {endpoint}")
         return self.client.put(endpoint, json=json, data=data, **kwargs)
 
     def delete(self, endpoint: str, **kwargs) -> httpx.Response:
-        if not self.client: raise RuntimeError("Driver not initialized")
+        if not self.client:
+            raise RuntimeError("Driver not initialized")
         logger.info(f"HTTPX DELETE: {endpoint}")
         return self.client.delete(endpoint, **kwargs)
 

@@ -16,7 +16,7 @@ class DriverFactory:
             return PlaywrightDriverStrategy()
         elif mode == 'api':
             provider = config_manager.get('api_provider')
-            if provider == 'axios' or provider == 'httpx':
+            if provider == 'httpx':
                 return HttpxApiStrategy()
             else:
                 return PlaywrightApiStrategy()

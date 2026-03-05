@@ -1,7 +1,6 @@
-import os
 import pytest
 from pydantic import ValidationError
-from src.config.config_manager import AppConfig, ConfigManager
+from src.config.config_manager import AppConfig
 
 def test_default_config(monkeypatch):
     # Remove any env vars that might interfere

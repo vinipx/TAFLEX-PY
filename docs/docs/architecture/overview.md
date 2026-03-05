@@ -40,7 +40,7 @@ flowchart TB
         ADS[AutomationDriver<br/>Abstract Class]
         PDS[PlaywrightStrategy]
         APIS[PlaywrightApiStrategy]
-        AXS[AxiosApiStrategy]
+        HXP[HttpxApiStrategy]
         MDS[WebdriverioMobileStrategy]
     end
 
@@ -63,7 +63,7 @@ flowchart TB
     DF --> ADS
     ADS --> PDS
     ADS --> APIS
-    ADS --> AXS
+    ADS --> HXP
     ADS --> MDS
 
     PDS --> PE
@@ -112,7 +112,7 @@ classDiagram
         +initialize()
     }
 
-    class AxiosApiStrategy {
+    class HttpxApiStrategy {
         -client
         +get(str)
         +post(str, dict)
@@ -120,7 +120,7 @@ classDiagram
 
     AutomationDriver <|-- PlaywrightStrategy
     AutomationDriver <|-- PlaywrightApiStrategy
-    AutomationDriver <|-- AxiosApiStrategy
+    AutomationDriver <|-- HttpxApiStrategy
     AutomationDriver <|-- WebdriverioMobileStrategy
 ```
 
@@ -200,7 +200,7 @@ sequenceDiagram
 | **Core Framework** | Python 3.10+, Pydantic, Pytest |
 | **Web Testing** | Playwright, Chromium/Firefox/WebKit |
 | **BDD Testing** | Gherkin, pytest-bdd |
-| **API Testing** | Playwright (Hybrid) · Axios (Specialized) |
+| **API Testing** | Playwright (Hybrid) · HTTPX (Specialized) |
 | **Mobile Testing** | WebdriverIO, Appium |
 | **Unit Testing** | Pytest |
 | **Database** | psycopg2, PyMySQL |

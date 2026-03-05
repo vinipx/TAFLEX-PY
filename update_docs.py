@@ -1,5 +1,3 @@
-import os
-import re
 from pathlib import Path
 
 docs_dir = Path("docs")

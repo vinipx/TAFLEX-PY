@@ -8,7 +8,8 @@ def test_driver_factory_web(monkeypatch):
     
     class MockConfigManager:
         def get(self, key):
-            if key == "execution_mode": return "web"
+            if key == "execution_mode":
+                return "web"
             return None
 
     monkeypatch.setattr(df, "config_manager", MockConfigManager())
@@ -21,8 +22,10 @@ def test_driver_factory_api_playwright(monkeypatch):
 
     class MockConfigManager:
         def get(self, key):
-            if key == "execution_mode": return "api"
-            if key == "api_provider": return "playwright"
+            if key == "execution_mode":
+                return "api"
+            if key == "api_provider":
+                return "playwright"
             return None
 
     monkeypatch.setattr(df, "config_manager", MockConfigManager())
@@ -35,8 +38,10 @@ def test_driver_factory_api_httpx(monkeypatch):
 
     class MockConfigManager:
         def get(self, key):
-            if key == "execution_mode": return "api"
-            if key == "api_provider": return "axios" # Tests legacy config
+            if key == "execution_mode":
+                return "api"
+            if key == "api_provider":
+                return "httpx"
             return None
 
     monkeypatch.setattr(df, "config_manager", MockConfigManager())

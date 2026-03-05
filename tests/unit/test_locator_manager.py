@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from src.core.locators.locator_manager import LocatorManager
 
 def test_locator_manager_loads_hierarchically(tmp_path, monkeypatch):
