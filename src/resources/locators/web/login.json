@@ -1,0 +1,6 @@
+{
+    "username_field": "#username",
+    "password_field": "#password",
+    "login_button": "button[type='submit']",
+    "flash_message": "#flash"
+}

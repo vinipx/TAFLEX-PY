@@ -1,0 +1,27 @@
+[project]
+name = "taflex-py"
+version = "0.1.0"
+description = "TAFLEX Python Migration"
+requires-python = ">=3.10"
+dependencies = [
+    "pytest",
+    "pydantic",
+    "pydantic-settings",
+    "playwright",
+    "httpx",
+    "Appium-Python-Client",
+    "pytest-bdd",
+    "pact-python",
+    "allure-pytest",
+    "requests",
+]
+
+[tool.pytest.ini_options]
+addopts = "-v --alluredir=allure-results"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.mypy]
+strict = true

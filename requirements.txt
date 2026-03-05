@@ -1,0 +1,12 @@
+pytest
+pydantic
+pydantic-settings
+playwright
+httpx
+Appium-Python-Client
+pytest-bdd
+pact-python
+allure-pytest
+requests
+ruff
+mypy
