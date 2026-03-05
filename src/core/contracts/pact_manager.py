@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import Optional, Callable, Any, Union, Dict
+from typing import Optional, Callable, Any
 from pact import Pact, Verifier
 from src.config.config_manager import config_manager
 
