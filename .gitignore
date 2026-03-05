@@ -45,3 +45,9 @@ pacts/
 dist/
 build/
 *.egg-info/
+
+# Node.js & Docs
+node_modules/
+docs/node_modules/
+docs/build/
+.docusaurus/

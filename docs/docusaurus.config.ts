@@ -8,7 +8,7 @@ const config: Config = {
   favicon: 'img/logo.svg',
 
   url: process.env.DOCS_URL || 'https://vinipx.github.io',
-  baseUrl: process.env.DOCS_BASE_URL || '/taflex-py/',
+  baseUrl: process.env.DOCS_BASE_URL || '/TAFLEX-PY/',
 
   organizationName: 'vinipx',
   projectName: 'taflex-py',
