@@ -13,7 +13,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://vinipx.github.io/taflex-py">📖 See Documentation</a>
+    <a href="https://vinipx.github.io/TAFLEX-PY">📖 See Documentation</a>
   </h3>
 </div>
 
