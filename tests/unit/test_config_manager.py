@@ -3,18 +3,20 @@ import pytest
 from pydantic import ValidationError
 from src.config.config_manager import AppConfig, ConfigManager
 
-def test_default_config():
+def test_default_config(monkeypatch):
     # Remove any env vars that might interfere
-    os.environ.pop("EXECUTION_MODE", None)
-    os.environ.pop("BASE_URL", None)
+    monkeypatch.delenv("EXECUTION_MODE", raising=False)
+    monkeypatch.delenv("BASE_URL", raising=False)
+    monkeypatch.delenv("REPORTERS", raising=False)
     
-    manager = ConfigManager()
-    assert manager.get("execution_mode") == "web"
-    assert manager.get("browser") == "chromium"
-    assert manager.get("headless") is True
-    assert manager.get("timeout") == 30000
-    assert manager.get("reporters") == ["html"]
-    assert manager.get("base_url") is None
+    config = AppConfig(_env_file=None) # ignore .env explicitly
+    
+    assert config.execution_mode == "web"
+    assert config.browser == "chromium"
+    assert config.headless is True
+    assert config.timeout == 30000
+    assert config.reporters == ["html"]
+    assert config.base_url is None
 
 def test_override_config_via_env(monkeypatch):
     monkeypatch.setenv("EXECUTION_MODE", "api")

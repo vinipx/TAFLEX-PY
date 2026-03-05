@@ -16,7 +16,7 @@ class AppConfig(BaseSettings):
     
     base_url: Optional[HttpUrl] = Field(default=None, alias='BASE_URL')
     api_base_url: Optional[HttpUrl] = Field(default=None, alias='API_BASE_URL')
-    api_provider: Literal['playwright', 'axios'] = Field(default='playwright', alias='API_PROVIDER')
+    api_provider: Literal['playwright', 'httpx'] = Field(default='httpx', alias='API_PROVIDER')
     timeout: int = Field(default=30000, alias='TIMEOUT')
     
     reporters_raw: str = Field(default='html', alias='REPORTERS')

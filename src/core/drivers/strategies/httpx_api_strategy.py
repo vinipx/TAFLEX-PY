@@ -17,7 +17,7 @@ class HttpxApiStrategy(AutomationDriver):
         logger.info(f"Initializing HTTPX API Strategy with base URL: {api_base_url}")
 
         self.client = httpx.Client(
-            base_url=api_base_url if api_base_url else "",
+            base_url=str(api_base_url) if api_base_url else "",
             timeout=timeout,
             headers={
                 "Accept": "application/json",
