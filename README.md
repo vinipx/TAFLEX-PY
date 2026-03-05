@@ -25,12 +25,13 @@
 
 ### ✨ Key Capabilities
 
-*   🌐 **Unified Multi-Platform**: Playwright (Web/Hybrid API) and HTTPX (Specialized API).
+*   🌐 **Unified Multi-Platform**: Playwright (Web/Hybrid API), HTTPX (Specialized API), and Appium (Mobile).
 *   🛡️ **Type-Safe Configuration**: Catch configuration errors instantly with Pydantic validation.
 *   🤖 **AI-Agent Ready**: Native **MCP (Model Context Protocol)** server integration for autonomous AI debugging.
 *   📂 **Smart Locators**: Hierarchical, JSON-based locator management without hardcoded selectors in tests.
 *   🥒 **BDD Support**: Native Gherkin feature execution via `pytest-bdd`.
 *   🤝 **Contract Testing**: First-class support for Consumer-Driven Contracts via `pact-python`.
+*   🗄️ **Database Integration**: Native support for PostgreSQL and MySQL via SQLAlchemy for seamless test data management.
 *   📊 **Enterprise Reporting**: Built-in hooks for Allure, EPAM ReportPortal, and Jira Xray.
 
 ---
@@ -70,6 +71,7 @@ REPORTERS=html,allure         # html, allure, reportportal, xray
 | `pytest tests/` | Run all test suites |
 | `pytest tests/web/` | Run Web integration tests |
 | `pytest tests/api/` | Run Specialized API tests |
+| `pytest tests/mobile/` | Run Mobile Appium tests |
 | `pytest tests/bdd/` | Run BDD specifications |
 | `pytest tests/unit/` | Run internal framework logic validation |
 | `fastmcp run src/mcp/server.py` | Start the **AI-Agent** server |

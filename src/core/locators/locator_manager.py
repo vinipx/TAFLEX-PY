@@ -24,15 +24,19 @@ class LocatorManager:
     def load(self, page_name: Optional[str] = None) -> None:
         """Loads and merges locators for the current execution mode and an optional specific page."""
         self.current_page = page_name
+        mode = self.current_mode
 
         global_locators = self._read_json("global.json")
-        mode_locators = self._read_json(f"{self.current_mode}/common.json")
+        mode_locators = self._read_json(f"{mode}/common.json")
 
         page_locators = {}
         if page_name:
-            page_locators = self._read_json(f"{self.current_mode}/{page_name}.json")
+            page_locators = self._read_json(f"{mode}/{page_name}.json")
 
         self.locators = {**global_locators, **mode_locators, **page_locators}
+        logger.info(f"Loaded {len(self.locators)} locators for mode '{mode}' and page '{page_name}'")
+        if len(self.locators) == 0:
+            logger.warn(f"⚠️ No locators found for {mode}/{page_name}. Check file paths in {self.base_path}")
 
     def resolve(self, logical_name: str) -> str:
         """Resolves a logical name to its underlying selector string."""

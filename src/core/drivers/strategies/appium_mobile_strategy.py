@@ -5,7 +5,7 @@ from src.core.drivers.automation_driver import AutomationDriver
 from src.core.locators.locator_manager import locator_manager
 from src.core.utils.logger import logger
 from src.core.elements.mobile_element import MobileElement
-from selenium.webdriver.common.by import By
+from appium.webdriver.common.appiumby import AppiumBy
 
 class AppiumMobileStrategy(AutomationDriver):
     """Mobile automation driver implementation using Appium."""
@@ -15,7 +15,8 @@ class AppiumMobileStrategy(AutomationDriver):
 
     def initialize(self, config: Any) -> webdriver.Remote:
         # Default local Appium server
-        appium_server_url = getattr(config, 'remote_url', 'http://localhost:4723')
+        remote_url_config = getattr(config, 'remote_url', None)
+        appium_server_url = str(remote_url_config) if remote_url_config else 'http://localhost:4723'
         cloud_platform = getattr(config, 'cloud_platform', 'local')
 
         options = AppiumOptions()
@@ -55,16 +56,15 @@ class AppiumMobileStrategy(AutomationDriver):
         selector = locator_manager.resolve(logical_name)
         
         if selector.startswith('//'):
-            strategy = By.XPATH
+            strategy = AppiumBy.XPATH
         elif selector.startswith('id='):
-            strategy = By.ID
+            strategy = AppiumBy.ID
             selector = selector[3:]
         else:
             # Default to accessibility id for mobile
-            strategy = 'accessibility id'
+            strategy = AppiumBy.ACCESSIBILITY_ID
 
-        element = self.driver.find_element(strategy, selector)
-        return MobileElement(element, self.driver, (strategy, selector), logical_name)
+        return MobileElement(self.driver, (strategy, selector), logical_name)
 
     def load_locators(self, page_name: str) -> None:
         locator_manager.load(page_name)

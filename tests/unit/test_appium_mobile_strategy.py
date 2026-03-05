@@ -69,10 +69,14 @@ def test_find_element(mock_locator_manager, mock_remote, mobile_strategy):
     
     element = mobile_strategy.find_element('submit_button')
     
-    assert element.element == mock_remote.return_value.find_element.return_value
     assert element.name == 'submit_button'
     assert element.locator_tuple == (By.XPATH, '//android.widget.Button[@text="Submit"]')
     mock_locator_manager.resolve.assert_called_once_with('submit_button')
+    # Element is lazy, so find_element on the driver should NOT be called yet
+    mock_remote.return_value.find_element.assert_not_called()
+    
+    # Accessing .element property should trigger the search
+    _ = element.element
     mock_remote.return_value.find_element.assert_called_once_with(By.XPATH, '//android.widget.Button[@text="Submit"]')
 
 @patch('src.core.drivers.strategies.appium_mobile_strategy.webdriver.Remote')

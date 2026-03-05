@@ -1,0 +1,6 @@
+{
+  "system_settings_title": "//*[@text='Settings' or @text='Config' or @text='Configurações' or @resource-id='com.android.settings:id/homepage_title']",
+  "search_box": "//*[contains(@resource-id, 'search') or contains(@content-desc, 'Search') or contains(@content-desc, 'Pesquisar')]",
+  "search_input": "//*[contains(@class, 'EditText') or @resource-id='com.android.settings:id/search_src_text']",
+  "battery_item": "//*[@text='Battery' or @text='Bateria']"
+}

@@ -27,3 +27,23 @@ def driver():
     driver.initialize(config_manager.config)
     yield driver
     driver.terminate()
+
+@pytest.fixture(scope="function")
+def mobile_driver():
+    # Force mobile mode for locator loading
+    import os
+    os.environ["EXECUTION_MODE"] = "mobile"
+    from src.config.config_manager import AppConfig
+    config_manager.config = AppConfig() # Reload config with mobile mode
+    
+    driver = DriverFactory.create("mobile")
+    # Tell appium to open the native settings app on the plugged in Android device
+    config_manager.config.os = 'Android'
+    driver.initialize(config_manager.config)
+    # Appium standard way to start an app if not provided in caps
+    driver.driver.execute_script('mobile: startActivity', {
+        'component': 'com.android.settings/.Settings',
+        'appPackage': 'com.android.settings'
+    })
+    yield driver
+    driver.terminate()

@@ -40,31 +40,27 @@ pytest tests/api/
 Create a file ending in `test_*.py` in `tests/api/`. These tests use **Pytest** as the runner.
 
 ```javascript
-import { describe, it, expect, beforeAll } from 'vitest';
-import { DriverFactory } from '../../src/core/drivers/driver.factory.ts';
+import pytest
+from src.core.drivers.driver_factory import DriverFactory
 
-describe('Specialized API Strategy (HTTPX + Pytest)', () => {
-    let driver;
+@pytest.fixture(scope="module")
+def httpx_driver():
+    # Ensure API_PROVIDER=httpx is set in .env
+    driver = DriverFactory.create('api') 
+    await driver.initialize({
+        api_base_url: 'https://jsonplaceholder.typicode.com'
+    })
+    yield driver
+    driver.terminate()
 
-    beforeAll(async () => {
-        // 1. Initialize driver with api mode
-        // Ensure API_PROVIDER=axios is set in .env
-        driver = DriverFactory.create('api'); 
-        await driver.initialize({
-            apiBaseUrl: 'https:/.jsonplaceholder.typicode.com'
-        });
-    });
+def test_specialized_api_strategy(httpx_driver):
+    # 2. Perform request
+    response = httpx_driver.get('/users/1')
 
-    it('should validate user contract with high performance', async () => {
-        // 2. Perform request
-        const response = await driver.get('/users/1');
-        
-        // 3. Standard Pytest assertions
-        expect(response.status()).toBe(200);
-        const user = await response.json();
-        expect(user.id).toBe(1);
-    });
-});
+    # 3. Standard Pytest assertions
+    assert response.status_code == 200
+    user = response.json()
+    assert user['id'] == 1
 ```
 
 **How to run:**

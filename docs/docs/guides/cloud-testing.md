@@ -1,6 +1,6 @@
 # Cloud Testing Guide
 
-Taflex JS provides native integration with industry-leading cloud testing platforms like **BrowserStack** and **SauceLabs**. This allows you to scale your test execution across a vast array of browser/OS combinations and real mobile devices without managing your own infrastructure.
+TAFLEX PY provides native integration with industry-leading cloud testing platforms like **BrowserStack** and **SauceLabs**. This allows you to scale your test execution across a vast array of browser/OS combinations and real mobile devices without managing your own infrastructure.
 
 ## 🚀 Why Use Cloud Testing?
 
@@ -15,7 +15,7 @@ To enable cloud execution, update your `.env` file with the following parameters
 
 ### Common Settings
 
-```bash
+```env
 # Set the platform (local, browserstack, saucelabs)
 CLOUD_PLATFORM=browserstack
 
@@ -28,7 +28,7 @@ CLOUD_KEY=your_access_key
 
 For web automation, you can specify the target environment:
 
-```bash
+```env
 EXECUTION_MODE=web
 BROWSER=chromium
 BROWSER_VERSION=latest
@@ -40,7 +40,7 @@ OS_VERSION=11
 
 For mobile automation, the framework automatically maps these settings to Appium capabilities:
 
-```bash
+```env
 EXECUTION_MODE=mobile
 OS=Android
 OS_VERSION=Google Pixel 7
@@ -74,13 +74,13 @@ You can easily switch between local and cloud execution using environment variab
 
 ```bash
 # Run web tests locally
-npm run test:web
+pytest tests/web
 
 # Run web tests on BrowserStack
-CLOUD_PLATFORM=browserstack npm run test:web
+CLOUD_PLATFORM=browserstack pytest tests/web
 
 # Run mobile tests on SauceLabs
-CLOUD_PLATFORM=saucelabs EXECUTION_MODE=mobile npm run test:bdd
+CLOUD_PLATFORM=saucelabs EXECUTION_MODE=mobile pytest tests/mobile
 ```
 
 ## 🔍 Debugging in the Cloud

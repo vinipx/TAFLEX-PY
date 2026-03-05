@@ -67,7 +67,7 @@ For enterprise-level test management, TAFLEX PY integrates with ReportPortal.
    RP_ENDPOINT=https://rp.yourcompany.com/api/v1
    RP_API_KEY=your_secret_key
    RP_PROJECT=your_project_name
-   RP_LAUNCH=taflex-ts-automation
+   RP_LAUNCH=taflex-py-automation
    RP_DESCRIPTION=Smoke Tests Execution
    RP_ATTRIBUTES=env:dev;team:qa
    ```

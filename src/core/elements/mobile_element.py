@@ -7,11 +7,15 @@ from src.core.utils.logger import logger
 class MobileElement:
     """Appium implementation of the unified element wrapper."""
 
-    def __init__(self, element: WebElement, driver: Any, locator_tuple: tuple[str, str], name: str) -> None:
-        self.element = element
+    def __init__(self, driver: Any, locator_tuple: tuple[str, str], name: str) -> None:
         self.driver = driver
         self.locator_tuple = locator_tuple
         self.name = name
+
+    @property
+    def element(self) -> WebElement:
+        """Finds and returns the native element on demand."""
+        return self.driver.find_element(*self.locator_tuple)
 
     def click(self, **kwargs) -> None:
         logger.info(f"Clicking on: {self.name}")
@@ -19,8 +23,9 @@ class MobileElement:
 
     def fill(self, value: str, **kwargs) -> None:
         logger.info(f"Filling {self.name} with: {value}")
-        self.element.clear()
-        self.element.send_keys(value)
+        el = self.element
+        el.clear()
+        el.send_keys(value)
 
     def type(self, value: str, **kwargs) -> None:
         logger.info(f"Typing {value} into: {self.name}")
@@ -33,10 +38,16 @@ class MobileElement:
         return self.element.get_attribute("value") or ""
 
     def is_visible(self) -> bool:
-        return self.element.is_displayed()
+        try:
+            return self.element.is_displayed()
+        except Exception:
+            return False
 
     def is_enabled(self) -> bool:
-        return self.element.is_enabled()
+        try:
+            return self.element.is_enabled()
+        except Exception:
+            return False
 
     def wait_for(self, timeout: int = 10, **kwargs) -> None:
         logger.info(f"Waiting for element: {self.name}")

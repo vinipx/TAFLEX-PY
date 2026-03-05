@@ -41,7 +41,7 @@ flowchart TB
         PDS[PlaywrightStrategy]
         APIS[PlaywrightApiStrategy]
         HXP[HttpxApiStrategy]
-        MDS[WebdriverioMobileStrategy]
+        AMS[AppiumMobileStrategy]
     end
 
     subgraph "Element Wrappers"
@@ -64,10 +64,10 @@ flowchart TB
     ADS --> PDS
     ADS --> APIS
     ADS --> HXP
-    ADS --> MDS
+    ADS --> AMS
 
     PDS --> PE
-    MDS --> ME
+    AMS --> ME
 
     ADS --> LM
     LM --> JSON
@@ -88,7 +88,7 @@ classDiagram
         <<abstract>>
         +initialize()
         +terminate()
-        +navigateTo(String)
+        +navigate_to(str)
         +find_element(str)
         +load_locators(str)
     }
@@ -98,7 +98,7 @@ classDiagram
         -context
         -page
         +initialize()
-        +navigateTo(String)
+        +navigate_to(str)
     }
 
     class PlaywrightApiStrategy {
@@ -107,9 +107,10 @@ classDiagram
         +post(str, dict)
     }
 
-    class WebdriverioMobileStrategy {
+    class AppiumMobileStrategy {
         -client
         +initialize()
+        +navigate_to(str)
     }
 
     class HttpxApiStrategy {
@@ -121,7 +122,7 @@ classDiagram
     AutomationDriver <|-- PlaywrightStrategy
     AutomationDriver <|-- PlaywrightApiStrategy
     AutomationDriver <|-- HttpxApiStrategy
-    AutomationDriver <|-- WebdriverioMobileStrategy
+    AutomationDriver <|-- AppiumMobileStrategy
 ```
 
 **Key Benefits:**
@@ -163,12 +164,12 @@ sequenceDiagram
 
 The **ConfigManager** provides centralized access to validated environment variables:
 
-```javascript
-import { configManager } from './config/config_manager.py';
+```python
+from src.config.config_manager import config_manager
 
-// Type-safe access with Zod validation
-const browser = configManager.get('BROWSER');
-const timeout = configManager.get('TIMEOUT');
+# Type-safe access with Pydantic validation
+browser = config_manager.get('browser')
+timeout = config_manager.get('timeout')
 ```
 
 ### 4. Test Execution Flow
@@ -186,7 +187,7 @@ sequenceDiagram
     Driver-->>FIX: AutomationDriver
 
     FIX->>Test: Execute test(driver)
-    Test->>Driver: navigateTo(), findElement()
+    Test->>Driver: navigate_to(), find_element()
     Driver->>Driver: Execute actions
 
     FIX->>Driver: terminate()
@@ -201,9 +202,9 @@ sequenceDiagram
 | **Web Testing** | Playwright, Chromium/Firefox/WebKit |
 | **BDD Testing** | Gherkin, pytest-bdd |
 | **API Testing** | Playwright (Hybrid) · HTTPX (Specialized) |
-| **Mobile Testing** | WebdriverIO, Appium |
+| **Mobile Testing** | Appium |
 | **Unit Testing** | Pytest |
-| **Database** | psycopg2, PyMySQL |
+| **Database** | SQLAlchemy, psycopg2, PyMySQL |
 | **Reporting** | Allure, Playwright HTML |
 
 ## Extensibility Points

@@ -51,6 +51,13 @@ const capabilityFeatures = [
       'Powerful API support using Playwright (Hybrid) for E2E flows and HTTPX (Specialized) with Pytest for high-speed standalone contract testing.',
   },
   {
+    badge: 'MOBILE',
+    color: '#8b5cf6',
+    title: 'Mobile Testing (Appium)',
+    description:
+      'Native and hybrid mobile testing via Appium with shared locator management, parallel execution, and unified driver interface.',
+  },
+  {
     badge: 'CLOUD',
     color: '#0ea5e9',
     title: 'Cloud Grids Support',
@@ -63,6 +70,13 @@ const capabilityFeatures = [
     title: 'Autonomous AI Ready',
     description:
       'Native MCP (Model Context Protocol) server allows AI agents to run tests, inspect locators, and debug failures autonomously.',
+  },
+  {
+    badge: 'DATA',
+    color: '#f59e0b',
+    title: 'Database Integration',
+    description:
+      'Native Postgres and MySQL support for test data setup, validation, and teardown — fully integrated into the test lifecycle.',
   },
 ];
 
@@ -107,24 +121,23 @@ const coreFeatures = [
     icon: '🛡️',
     title: 'Type-Safe Configuration',
     description:
-      'Environment validation using Zod ensures your framework is always correctly configured before tests even start.',
+      'Environment validation using Pydantic ensures your framework is always correctly configured before tests even start.',
   },
 ];
 
 const techStack = [
-  { name: 'Python', desc: 'Runtime (TS)' },
+  { name: 'Python', desc: 'Runtime' },
   { name: 'MCP', desc: 'AI-Agent Protocol' },
   { name: 'Playwright', desc: 'Web & Hybrid API' },
   { name: 'HTTPX', desc: 'Specialized API' },
-  { name: 'Pytest', desc: 'Unit Testing' },
+  { name: 'Appium', desc: 'Mobile' },
+  { name: 'Pytest', desc: 'Execution Engine' },
   { name: 'Pact', desc: 'Contract Testing' },
   { name: 'Gherkin', desc: 'BDD Specifications' },
   { name: 'Pydantic', desc: 'Validation' },
+  { name: 'SQLAlchemy', desc: 'Database ORM' },
   { name: 'Allure', desc: 'Reporting' },
-  { name: 'ReportPortal', desc: 'Enterprise Reporting' },
   { name: 'Xray', desc: 'Jira Governance' },
-  { name: 'BrowserStack', desc: 'Cloud Execution' },
-  { name: 'SauceLabs', desc: 'Cloud Execution' },
   { name: 'Ruff', desc: 'Linting' },
   { name: 'Mypy', desc: 'Typing' },
 ];
@@ -207,7 +220,7 @@ function ArchitectureSection() {
           <div className={styles.archLayer} data-layer="3">
             <div className={styles.archLabel}>Layer 3 — Configuration</div>
             <div className={styles.archClasses}>
-              JSON Locators · Zod Environment · Driver Factory
+              JSON Locators · Pydantic Environment · Driver Factory
             </div>
           </div>
           <div className={styles.archLayer} data-layer="2">
@@ -219,7 +232,7 @@ function ArchitectureSection() {
           <div className={styles.archLayer} data-layer="1">
             <div className={styles.archLabel}>Layer 1 — Platform Adapters</div>
             <div className={styles.archClasses}>
-              Playwright (Web/API) · HTTPX (API)
+              Playwright (Web/API) · HTTPX (API) · Appium (Mobile) · PostgreSQL/MySQL (DB)
             </div>
           </div>
         </div>
@@ -312,7 +325,7 @@ export default function Home(): React.ReactNode {
   return (
     <Layout
       title="Enterprise Test Automation Framework"
-      description="TAFLEX PY — Unified, enterprise-grade test automation framework for Web, API, and Mobile in TypeScript."
+      description="TAFLEX PY — Unified, enterprise-grade test automation framework for Web, API, and Mobile in Python."
     >
       <HeroBanner />
       <main>

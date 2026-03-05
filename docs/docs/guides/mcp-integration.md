@@ -74,7 +74,7 @@ Add the following entry to your `claude_desktop_config.json` (typically located 
   "mcpServers": {
     "taflex": {
       "command": "python",
-      "args": ["/absolute/path/to/taflex-ts/src/mcp/server.py"],
+      "args": ["/absolute/path/to/taflex-py/src/mcp/server.py"],
       "env": {
         "NODE_ENV": "development"
       }
@@ -87,7 +87,7 @@ Add the following entry to your `claude_desktop_config.json` (typically located 
 You can add the server via the command line:
 
 ```bash
-gemini mcp add taflex python /absolute/path/to/taflex-ts/src/mcp/server.py
+gemini mcp add taflex python /absolute/path/to/taflex-py/src/mcp/server.py
 ```
 
 Alternatively, add it manually to your `.gemini/settings.json`:
@@ -97,7 +97,7 @@ Alternatively, add it manually to your `.gemini/settings.json`:
   "mcpServers": {
     "taflex": {
       "command": "python",
-      "args": ["/absolute/path/to/taflex-ts/src/mcp/server.py"]
+      "args": ["/absolute/path/to/taflex-py/src/mcp/server.py"]
     }
   }
 }
@@ -108,7 +108,7 @@ Alternatively, add it manually to your `.gemini/settings.json`:
 2. Click **+ Add New MCP Server**.
 3. Name: `taflex`
 4. Type: `command`
-5. Command: `python /absolute/path/to/taflex-ts/src/mcp/server.py`
+5. Command: `python /absolute/path/to/taflex-py/src/mcp/server.py`
 
 #### VS Code (Cline / Roo Code)
 If you are using extensions like **Cline** or **Roo Code**:
@@ -120,7 +120,7 @@ If you are using extensions like **Cline** or **Roo Code**:
   "mcpServers": {
     "taflex": {
       "command": "python",
-      "args": ["/absolute/path/to/taflex-ts/src/mcp/server.py"]
+      "args": ["/absolute/path/to/taflex-py/src/mcp/server.py"]
     }
   }
 }
@@ -135,7 +135,7 @@ Add to your `opencode.json` (global in `~/.config/opencode/` or per-project):
     "taflex": {
       "type": "local",
       "command": "python",
-      "args": ["/absolute/path/to/taflex-ts/src/mcp/server.py"],
+      "args": ["/absolute/path/to/taflex-py/src/mcp/server.py"],
       "enabled": true
     }
   }
