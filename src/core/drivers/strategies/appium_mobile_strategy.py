@@ -4,6 +4,8 @@ from typing import Any, Optional
 from src.core.drivers.automation_driver import AutomationDriver
 from src.core.locators.locator_manager import locator_manager
 from src.core.utils.logger import logger
+from src.core.elements.mobile_element import MobileElement
+from selenium.webdriver.common.by import By
 
 class AppiumMobileStrategy(AutomationDriver):
     """Mobile automation driver implementation using Appium."""
@@ -50,15 +52,19 @@ class AppiumMobileStrategy(AutomationDriver):
     def find_element(self, logical_name: str) -> Any:
         if not self.driver:
             raise RuntimeError("Driver not initialized")
-        # Note: A real implementation would parse the selector strategy (xpath, id, accessibility id)
-        # and wrap it in a MobileElement wrapper similar to PlaywrightElement. 
-        # Keeping it aligned to the interface for now.
         selector = locator_manager.resolve(logical_name)
-        # Naive implementation assuming standard CSS/Xpath for demonstration
-        from selenium.webdriver.common.by import By
-        strategy = By.XPATH if selector.startswith('//') else By.CSS_SELECTOR
+        
+        if selector.startswith('//'):
+            strategy = By.XPATH
+        elif selector.startswith('id='):
+            strategy = By.ID
+            selector = selector[3:]
+        else:
+            # Default to accessibility id for mobile
+            strategy = 'accessibility id'
+
         element = self.driver.find_element(strategy, selector)
-        return element
+        return MobileElement(element, self.driver, (strategy, selector), logical_name)
 
     def load_locators(self, page_name: str) -> None:
         locator_manager.load(page_name)

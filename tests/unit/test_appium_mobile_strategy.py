@@ -1,5 +1,6 @@
 import pytest
 from unittest.mock import Mock, patch
+from selenium.webdriver.common.by import By
 from src.core.drivers.strategies.appium_mobile_strategy import AppiumMobileStrategy
 
 @pytest.fixture
@@ -68,9 +69,10 @@ def test_find_element(mock_locator_manager, mock_remote, mobile_strategy):
     
     element = mobile_strategy.find_element('submit_button')
     
-    assert element == mock_remote.return_value.find_element.return_value
+    assert element.element == mock_remote.return_value.find_element.return_value
+    assert element.name == 'submit_button'
+    assert element.locator_tuple == (By.XPATH, '//android.widget.Button[@text="Submit"]')
     mock_locator_manager.resolve.assert_called_once_with('submit_button')
-    from selenium.webdriver.common.by import By
     mock_remote.return_value.find_element.assert_called_once_with(By.XPATH, '//android.widget.Button[@text="Submit"]')
 
 @patch('src.core.drivers.strategies.appium_mobile_strategy.webdriver.Remote')
