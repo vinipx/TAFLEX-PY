@@ -53,4 +53,3 @@ jobs:
         name: test-results
         path: allure-results/
         retention-days: 7
-    - name: Debug info\n      run: echo 'Triggering Action...'
