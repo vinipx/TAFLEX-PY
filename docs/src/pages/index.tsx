@@ -51,13 +51,6 @@ const capabilityFeatures = [
       'Powerful API support using Playwright (Hybrid) for E2E flows and HTTPX (Specialized) with Pytest for high-speed standalone contract testing.',
   },
   {
-    badge: 'MOBILE',
-    color: '#8b5cf6',
-    title: 'Mobile Testing (WDIO)',
-    description:
-      'Native and hybrid mobile testing via Appium with shared locator management, parallel execution, and unified driver interface.',
-  },
-  {
     badge: 'CLOUD',
     color: '#0ea5e9',
     title: 'Cloud Grids Support',
@@ -70,13 +63,6 @@ const capabilityFeatures = [
     title: 'Autonomous AI Ready',
     description:
       'Native MCP (Model Context Protocol) server allows AI agents to run tests, inspect locators, and debug failures autonomously.',
-  },
-  {
-    badge: 'DATA',
-    color: '#f59e0b',
-    title: 'Database Integration',
-    description:
-      'Native Postgres and MySQL support for test data setup, validation, and teardown — fully integrated into the test lifecycle.',
   },
 ];
 
@@ -130,7 +116,6 @@ const techStack = [
   { name: 'MCP', desc: 'AI-Agent Protocol' },
   { name: 'Playwright', desc: 'Web & Hybrid API' },
   { name: 'HTTPX', desc: 'Specialized API' },
-  { name: 'Appium (Python)', desc: 'Mobile' },
   { name: 'Pytest', desc: 'Unit Testing' },
   { name: 'Pact', desc: 'Contract Testing' },
   { name: 'Gherkin', desc: 'BDD Specifications' },
@@ -234,7 +219,7 @@ function ArchitectureSection() {
           <div className={styles.archLayer} data-layer="1">
             <div className={styles.archLabel}>Layer 1 — Platform Adapters</div>
             <div className={styles.archClasses}>
-              Playwright (Web/API) · HTTPX (API) · Appium (Mobile) · PostgreSQL/MySQL (DB)
+              Playwright (Web/API) · HTTPX (API)
             </div>
           </div>
         </div>

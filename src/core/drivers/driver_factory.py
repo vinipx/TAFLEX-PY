@@ -21,8 +21,7 @@ class DriverFactory:
             else:
                 return PlaywrightApiStrategy()
         elif mode == 'mobile':
-            # Placeholder for WebdriverioMobileStrategy translation
-            # Assuming Appium is used for Python
-            raise NotImplementedError("Mobile strategy is not fully implemented yet in Python stack.")
+            from src.core.drivers.strategies.appium_mobile_strategy import AppiumMobileStrategy
+            return AppiumMobileStrategy()
         else:
             raise ValueError(f"Unsupported execution mode: {mode}")

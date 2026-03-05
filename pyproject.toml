@@ -15,7 +15,10 @@ dependencies = [
     "allure-pytest",
     "requests",
     "ruff",
-    "mypy"
+    "mypy",
+    "SQLAlchemy",
+    "psycopg2-binary",
+    "PyMySQL"
 ]
 
 [tool.pytest.ini_options]

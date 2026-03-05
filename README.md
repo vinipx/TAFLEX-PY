@@ -25,7 +25,7 @@
 
 ### ✨ Key Capabilities
 
-*   🌐 **Unified Multi-Platform**: Playwright (Web/Hybrid API), HTTPX (Specialized API), and Appium (Mobile).
+*   🌐 **Unified Multi-Platform**: Playwright (Web/Hybrid API) and HTTPX (Specialized API).
 *   🛡️ **Type-Safe Configuration**: Catch configuration errors instantly with Pydantic validation.
 *   🤖 **AI-Agent Ready**: Native **MCP (Model Context Protocol)** server integration for autonomous AI debugging.
 *   📂 **Smart Locators**: Hierarchical, JSON-based locator management without hardcoded selectors in tests.
