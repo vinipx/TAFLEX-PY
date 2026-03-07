@@ -1,8 +1,16 @@
 import logging
 import allure
+import sys
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 _logger = logging.getLogger("TAFLEX")
+_logger.setLevel(logging.INFO)
+
+# Add a default console handler only if not running inside pytest
+# Pytest's log_cli handles console output for tests to prevent duplication.
+if "pytest" not in sys.modules:
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+    _logger.addHandler(console_handler)
 
 class Logger:
     @staticmethod

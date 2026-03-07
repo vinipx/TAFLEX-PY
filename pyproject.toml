@@ -25,6 +25,10 @@ dependencies = [
 [tool.pytest.ini_options]
 addopts = "-v --alluredir=allure-results"
 testpaths = ["tests"]
+log_cli = true
+log_cli_level = "INFO"
+log_cli_format = "%(asctime)s - %(levelname)s - %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 markers = [
     "web: mark test as a web UI test",
     "api: mark test as an API test",
