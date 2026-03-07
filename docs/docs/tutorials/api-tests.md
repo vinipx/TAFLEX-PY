@@ -79,7 +79,7 @@ API_PROVIDER=httpx pytest tests/api/
 | **Speed** | Moderate | Fast (Blazing) |
 | **Trace Viewer** | Yes | No |
 | **Authentication Sharing** | Native with Browser | Manual |
-| **Watch Mode** | `npx playwright test --ui` | `npm run test:unit` (Auto-watch) |
+| **Watch Mode** | `pytest --headed` (Using pytest-playwright) | `pytest-watch` (Auto-watch) |
 
 ---
 
