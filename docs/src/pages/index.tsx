@@ -304,10 +304,9 @@ function QuickStartSection() {
 git clone https://github.com/vinipx/taflex-py.git
 cd taflex-py
 
-# Install dependencies
-python -m venv .venv
+# Run the automated setup script
+./setup.sh
 source .venv/bin/activate
-pip install -e .
 
 # Run all tests
 pytest tests/

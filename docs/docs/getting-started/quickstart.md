@@ -9,31 +9,23 @@ Get up and running with TAFLEX PY in under 5 minutes.
 
 ## 1. Installation
 
-TAFLEX PY requires **Python 3.10** or higher. 
+TAFLEX PY requires **Python 3.10** or higher. We provide a setup script to automatically configure your virtual environment, install dependencies, and download Playwright browsers.
 
 ```bash
 # Clone the repository
 git clone https://github.com/vinipx/taflex-py.git
 cd taflex-py
 
-# Setup virtual environment and install dependencies
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
+# Run the setup script
+./setup.sh
 
-# Install Playwright browsers
-playwright install
+# Activate the virtual environment
+source .venv/bin/activate
 ```
 
 ## 2. Configuration
 
-Create your `.env` file:
-
-```bash
-cp .env.example .env
-```
-
-Now, edit the `.env` file to match your environment:
+The `setup.sh` script automatically creates a `.env` file from the `.env.example` template if one doesn't exist. Open the `.env` file to customize your execution environment:
 
 ```env
 EXECUTION_MODE=web
