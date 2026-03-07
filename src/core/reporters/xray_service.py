@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+from typing import Any, Dict, List, Optional
 from src.config.config_manager import AppConfig
 from src.core.utils.logger import logger
 
@@ -9,7 +10,7 @@ class XrayService:
     def __init__(self, config: AppConfig):
         self.config = config
         self.base_url = 'https://xray.cloud.getxray.app/api/v2'
-        self.token = None
+        self.token: Optional[str] = None
 
     def authenticate(self) -> str:
         if self.token:
@@ -30,9 +31,9 @@ class XrayService:
             logger.error(f"Failed to authenticate with Xray: {str(e)}")
             raise e
 
-    def import_execution(self, results: dict):
+    def import_execution(self, results: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         if not self.config.xray_enabled:
-            return
+            return None
 
         token = self.authenticate()
 
@@ -49,8 +50,8 @@ class XrayService:
             logger.error(f"Failed to import execution to Xray: {err_msg}")
             raise e
 
-    def format_results(self, test_results: list) -> dict:
-        info = {
+    def format_results(self, test_results: List[Dict[str, Any]]) -> Dict[str, Any]:
+        info: Dict[str, Any] = {
             "summary": f"Execution of automated tests - {datetime.utcnow().isoformat()}Z",
             "description": "Imported from taflex-py",
         }

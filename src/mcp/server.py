@@ -1,6 +1,7 @@
 import json
 import asyncio
 from pathlib import Path
+from typing import Optional
 from mcp.server.fastmcp import FastMCP
 from src.config.config_manager import AppConfig
 
@@ -30,7 +31,7 @@ def get_latest_report() -> str:
     raise ValueError("Latest report not found.")
 
 @mcp.tool()
-def list_specs(type: str = None) -> str:
+def list_specs(type: Optional[str] = None) -> str:
     """List all available test specification files in the tests/ directory."""
     test_dir = ROOT_DIR / 'tests'
     if type:

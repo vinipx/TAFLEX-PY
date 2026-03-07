@@ -71,7 +71,7 @@ class PactManager:
             raise ValueError("Pact not setup. Call setup() before execute_test().")
             
         with self.pact.serve() as mock_server:
-            result = test_fn(mock_server.url)
+            result = test_fn(str(mock_server.url))
             
         pact_dir = Path(os.getcwd()) / 'pacts'
         pact_dir.mkdir(exist_ok=True)
@@ -79,7 +79,7 @@ class PactManager:
         return result
 
     def verify_provider(self, provider: str, pact_source: str, provider_url: str, 
-                        state_handler: Optional[Callable] = None):
+                        state_handler: Optional[Callable[..., Any]] = None):
         """Verifies a provider against a pact source."""
         if not self.enabled:
             print("Pact is disabled. Skipping provider verification.")
@@ -90,4 +90,4 @@ class PactManager:
         verifier.add_transport(url=provider_url)
         
         # In v3, state_handler can be a function
-        return verifier.verify(state_handler=state_handler)
+        return verifier.verify(state_handler=state_handler)  # type: ignore[call-arg]

@@ -1,5 +1,5 @@
 from typing import Any, Optional
-from playwright.sync_api import sync_playwright, APIRequestContext
+from playwright.sync_api import sync_playwright, APIRequestContext, Playwright
 from src.core.drivers.api_client import ApiClient
 from src.core.utils.logger import logger
 
@@ -7,7 +7,7 @@ class PlaywrightApiStrategy(ApiClient):
     """API automation driver implementation using Playwright's APIRequestContext."""
 
     def __init__(self) -> None:
-        self.playwright = None
+        self.playwright: Optional[Playwright] = None
         self.request_context: Optional[APIRequestContext] = None
 
     def initialize(self, config: Any) -> APIRequestContext:

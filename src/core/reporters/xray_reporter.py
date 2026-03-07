@@ -1,6 +1,7 @@
 import pytest
 import re
 from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional
 from src.core.reporters.xray_service import XrayService
 from src.config.config_manager import AppConfig
 from src.core.utils.logger import logger
@@ -12,8 +13,8 @@ class XrayReporter:
         self.config = config
         self.enabled = config.xray_enabled
         self.xray_service = XrayService(config)
-        self.results = []
-        self.test_start_times = {}
+        self.results: List[Dict[str, Any]] = []
+        self.test_start_times: Dict[str, datetime] = {}
 
     @pytest.hookimpl(tryfirst=True)
     def pytest_runtest_setup(self, item):
@@ -68,7 +69,7 @@ class XrayReporter:
         except Exception as e:
             logger.error(f"Xray: Failed to upload results: {str(e)}")
 
-    def _extract_xray_key(self, item) -> str:
+    def _extract_xray_key(self, item) -> Optional[str]:
         # Check markers first (e.g. @pytest.mark.PROJ_123)
         for mark in item.iter_markers():
             match = re.match(r'^([A-Z]+-\d+)$', mark.name.replace("_", "-"))

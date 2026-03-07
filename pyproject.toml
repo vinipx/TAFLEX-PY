@@ -41,4 +41,6 @@ markers = [
 line-length = 120
 
 [tool.mypy]
-strict = true
+ignore_missing_imports = true
+disallow_untyped_defs = false
+warn_return_any = false

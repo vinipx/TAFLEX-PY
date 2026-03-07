@@ -1,7 +1,7 @@
 import json
 from urllib.parse import quote
 from typing import Any, Optional
-from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page, Locator
+from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page, Locator, Playwright
 from src.core.drivers.ui_driver import UiDriver
 from src.core.locators.locator_manager import LocatorManager
 from src.core.utils.logger import logger
@@ -10,7 +10,7 @@ class PlaywrightDriverStrategy(UiDriver):
     """Web automation driver implementation using Playwright."""
 
     def __init__(self) -> None:
-        self.playwright = None
+        self.playwright: Optional[Playwright] = None
         self.browser: Optional[Browser] = None
         self.context: Optional[BrowserContext] = None
         self.page: Optional[Page] = None

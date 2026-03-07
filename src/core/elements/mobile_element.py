@@ -32,10 +32,11 @@ class MobileElement:
         self.element.send_keys(value)
 
     def get_text(self) -> str:
-        return self.element.text
+        return str(self.element.text)
 
     def get_value(self) -> str:
-        return self.element.get_attribute("value") or ""
+        val = self.element.get_attribute("value")
+        return str(val) if val else ""
 
     def is_visible(self) -> bool:
         try:
@@ -55,4 +56,5 @@ class MobileElement:
         wait.until(EC.presence_of_element_located(self.locator_tuple))
 
     def get_attribute(self, name: str) -> str | None:
-        return self.element.get_attribute(name)
+        val = self.element.get_attribute(name)
+        return str(val) if val is not None else None

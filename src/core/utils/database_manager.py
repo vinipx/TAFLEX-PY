@@ -47,7 +47,7 @@ class DatabaseManager:
         try:
             logger.info(f"Executing query on '{connection_id}': {query_string}")
             result = session.execute(text(query_string), parameters or {})
-            if result.returns_rows:
+            if getattr(result, "returns_rows", False):
                 # Convert rows to dict
                 return [row._asdict() for row in result.fetchall()]
             session.commit()

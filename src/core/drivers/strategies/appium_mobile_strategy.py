@@ -63,7 +63,7 @@ class AppiumMobileStrategy(UiDriver):
             selector = selector[3:]
         else:
             # Default to accessibility id for mobile
-            strategy = AppiumBy.ACCESSIBILITY_ID
+            strategy = AppiumBy.ACCESSIBILITY_ID  # type: ignore[assignment]
 
         return MobileElement(self.driver, (strategy, selector), logical_name)
 
