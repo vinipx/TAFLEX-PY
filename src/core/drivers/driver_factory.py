@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Union
 from src.config.config_manager import AppConfig
 from src.core.drivers.ui_driver import UiDriver
 from src.core.drivers.api_client import ApiClient
