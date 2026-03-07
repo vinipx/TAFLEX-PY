@@ -25,6 +25,12 @@ dependencies = [
 [tool.pytest.ini_options]
 addopts = "-v --alluredir=allure-results"
 testpaths = ["tests"]
+markers = [
+    "web: mark test as a web UI test",
+    "api: mark test as an API test",
+    "mobile: mark test as a mobile test",
+    "PROJ-123: Jira/Xray issue link marker"
+]
 
 [tool.ruff]
 line-length = 120
