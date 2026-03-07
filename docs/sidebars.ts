@@ -19,7 +19,10 @@ const sidebars = {
       type: "category",
       label: "Architecture",
       collapsed: false,
-      items: ["architecture/overview"],
+      items: [
+        "architecture/overview",
+        "architecture/execution-flow"
+      ],
     },
     {
       type: "category",

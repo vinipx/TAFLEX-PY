@@ -180,21 +180,26 @@ timeout = config_manager.get('timeout')
 
 ```mermaid
 sequenceDiagram
-    participant Suite as Test Runner
-    participant FIX as Fixture
-    participant Driver as Strategy
+    participant Suite as Pytest
+    participant Conf as conftest.py
+    participant CM as ConfigManager
+    participant DF as DriverFactory
+    participant Strat as Strategy
     participant Test as Spec
 
-    Suite->>FIX: Setup Context
-    FIX->>Driver: DriverFactory.create()
-    Driver->>Driver: initialize(config)
-    Driver-->>FIX: UiDriver / ApiClient
-
-    FIX->>Test: Execute test(driver)
-    Test->>Driver: navigate_to()
-    Driver->>Driver: Execute actions
-
-    FIX->>Driver: terminate()
+    Suite->>Conf: Request driver fixture
+    Conf->>CM: Load AppConfig (reads .env)
+    CM-->>Conf: AppConfig object
+    Conf->>Conf: Check EXECUTION_MODE
+    Conf->>DF: DriverFactory.create(config)
+    DF-->>Conf: Strategy Instance (Web/API/Mobile)
+    Conf->>Strat: initialize(config)
+    Strat-->>Conf: Ready
+    Conf->>Test: Execute test(driver)
+    Test->>Strat: perform actions (e.g. navigate_to)
+    Strat-->>Test: Returns state/elements
+    Test-->>Conf: Test Complete
+    Conf->>Strat: terminate()
     Suite->>Suite: Finalize Reports
 ```
 
