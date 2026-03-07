@@ -4,9 +4,9 @@
  * TAFLEX Documentation — Professional Enterprise Theme
  *
  * Design philosophy:
- *   Dark mode  = True neutral blacks/charcoals (NO blue tint in backgrounds)
+ *   Dark mode  = True neutral blacks/charcoals (NO yellow tint in backgrounds)
  *   Light mode = Clean whites and cool grays
- *   Accent     = Electric blue (#3b82f6) ONLY for interactive elements:
+ *   Accent     = Python yellow (#eab308) ONLY for interactive elements:
  *                borders, badges, links, active states, hover highlights
  *   Typography = Inter / system stack for crisp readability
  *
@@ -33,17 +33,17 @@
   --taflex-gray-900: #18181b;
   --taflex-black:    #09090b;
 
-  /* ── Blue accent palette (used sparingly) ──────────────────────── */
-  --taflex-blue-900: #1e3a5f;
-  --taflex-blue-800: #1e40af;
-  --taflex-blue-700: #1d4ed8;
-  --taflex-blue-600: #2563eb;
-  --taflex-blue-500: #3b82f6;
-  --taflex-blue-400: #60a5fa;
-  --taflex-blue-300: #93c5fd;
-  --taflex-blue-200: #bfdbfe;
-  --taflex-blue-100: #dbeafe;
-  --taflex-blue-50:  #eff6ff;
+  /* ── Yellow accent palette (used sparingly) ──────────────────────── */
+  --taflex-yellow-900: #713f12;
+  --taflex-yellow-800: #854d0e;
+  --taflex-yellow-700: #a16207;
+  --taflex-yellow-600: #ca8a04;
+  --taflex-yellow-500: #eab308;
+  --taflex-yellow-400: #facc15;
+  --taflex-yellow-300: #fde047;
+  --taflex-yellow-200: #fef08a;
+  --taflex-yellow-100: #fef9c3;
+  --taflex-yellow-50:  #fefce8;
 
   /* ── Semantic accents ───────────────────────────────────────────── */
   --taflex-green:  #22c55e;
@@ -52,13 +52,13 @@
   --taflex-violet: #8b5cf6;
 
   /* ── Docusaurus color bindings — Light mode ─────────────────────── */
-  --ifm-color-primary:          #2563eb;
-  --ifm-color-primary-dark:     #1d4ed8;
-  --ifm-color-primary-darker:   #1e40af;
-  --ifm-color-primary-darkest:  #1e3a5f;
-  --ifm-color-primary-light:    #3b82f6;
-  --ifm-color-primary-lighter:  #60a5fa;
-  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-color-primary:          #ca8a04;
+  --ifm-color-primary-dark:     #a16207;
+  --ifm-color-primary-darker:   #854d0e;
+  --ifm-color-primary-darkest:  #713f12;
+  --ifm-color-primary-light:    #eab308;
+  --ifm-color-primary-lighter:  #facc15;
+  --ifm-color-primary-lightest: #fde047;
 
   --ifm-color-success: #22c55e;
   --ifm-color-warning: #f59e0b;
@@ -89,7 +89,7 @@
   --ifm-footer-background-color: var(--taflex-black);
   --ifm-footer-color: var(--taflex-gray-500);
   --ifm-footer-link-color: var(--taflex-gray-300);
-  --ifm-footer-link-hover-color: var(--taflex-blue-400);
+  --ifm-footer-link-hover-color: var(--taflex-yellow-400);
   --ifm-footer-padding-vertical: 2.5rem;
 
   /* ── Code blocks ────────────────────────────────────────────────── */
@@ -104,18 +104,18 @@
 }
 
 /* ===================================================================
-   DARK MODE — Pure neutral blacks/charcoals. Blue = accent only.
+   DARK MODE — Pure neutral blacks/charcoals. Yellow = accent only.
    =================================================================== */
 [data-theme='dark'] {
-  --ifm-color-primary:          #60a5fa;
-  --ifm-color-primary-dark:     #3b82f6;
-  --ifm-color-primary-darker:   #2563eb;
-  --ifm-color-primary-darkest:  #1d4ed8;
-  --ifm-color-primary-light:    #93c5fd;
-  --ifm-color-primary-lighter:  #bfdbfe;
-  --ifm-color-primary-lightest: #dbeafe;
+  --ifm-color-primary:          #facc15;
+  --ifm-color-primary-dark:     #eab308;
+  --ifm-color-primary-darker:   #ca8a04;
+  --ifm-color-primary-darkest:  #a16207;
+  --ifm-color-primary-light:    #fde047;
+  --ifm-color-primary-lighter:  #fef08a;
+  --ifm-color-primary-lightest: #fef9c3;
 
-  /* Backgrounds — PURE neutrals, no blue tint */
+  /* Backgrounds — PURE neutrals, no yellow tint */
   --ifm-background-color:         #0d0d0d;
   --ifm-background-surface-color: #141414;
   --ifm-navbar-background-color:  #0d0d0d;
@@ -144,13 +144,13 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 2.25rem;
   margin-bottom: 1.5rem;
   color: var(--taflex-gray-900);
-  border-bottom: 3px solid var(--taflex-blue-500);
+  border-bottom: 3px solid var(--taflex-yellow-500);
   padding-bottom: 0.75rem;
 }
 
 [data-theme='dark'] .markdown h1:first-child {
   color: var(--taflex-gray-100);
-  border-bottom-color: var(--taflex-blue-500);
+  border-bottom-color: var(--taflex-yellow-500);
 }
 
 .markdown h2 {
@@ -200,7 +200,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar__link--active {
-  color: var(--taflex-blue-400) !important;
+  color: var(--taflex-yellow-400) !important;
   font-weight: 600;
 }
 
@@ -237,14 +237,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .menu__link--active {
   font-weight: 600;
-  background-color: var(--taflex-blue-50) !important;
-  border-left: 3px solid var(--taflex-blue-500);
-  color: var(--taflex-blue-700) !important;
+  background-color: var(--taflex-yellow-50) !important;
+  border-left: 3px solid var(--taflex-yellow-500);
+  color: var(--taflex-yellow-700) !important;
 }
 
 [data-theme='dark'] .menu__link--active {
-  background-color: rgba(96, 165, 250, 0.08) !important;
-  color: var(--taflex-blue-400) !important;
+  background-color: rgba(250, 204, 21, 0.08) !important;
+  color: var(--taflex-yellow-400) !important;
 }
 
 .menu__list-item-collapsible .menu__link {
@@ -285,21 +285,21 @@ article {
 
 code {
   background-color: var(--taflex-gray-100);
-  color: var(--taflex-blue-800);
+  color: var(--taflex-yellow-800);
   border: 1px solid var(--taflex-gray-200);
   font-weight: 500;
 }
 
 [data-theme='dark'] code {
   background-color: #1a1a1a;
-  color: var(--taflex-blue-400);
+  color: var(--taflex-yellow-400);
   border-color: #2a2a2a;
 }
 
 div[class*='codeBlockTitle'] {
   background-color: var(--taflex-gray-900) !important;
   color: var(--taflex-gray-300) !important;
-  border-bottom: 2px solid var(--taflex-blue-500);
+  border-bottom: 2px solid var(--taflex-yellow-500);
   font-family: var(--ifm-font-family-monospace);
   font-size: 0.8rem;
   letter-spacing: 0.04em;
@@ -335,7 +335,7 @@ thead th {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 0.75rem 1rem !important;
-  border-bottom: 2px solid var(--taflex-blue-500) !important;
+  border-bottom: 2px solid var(--taflex-yellow-500) !important;
   white-space: nowrap;
 }
 
@@ -352,11 +352,11 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-  background-color: var(--taflex-blue-50);
+  background-color: var(--taflex-yellow-50);
 }
 
 [data-theme='dark'] tbody tr:hover {
-  background-color: rgba(96, 165, 250, 0.04);
+  background-color: rgba(250, 204, 21, 0.04);
 }
 
 tbody td {
@@ -420,7 +420,7 @@ div[class*='announcementBar'] {
 }
 
 div[class*='announcementBar'] a {
-  color: var(--taflex-blue-400);
+  color: var(--taflex-yellow-400);
   text-decoration: underline;
   font-weight: 600;
 }
@@ -484,7 +484,7 @@ div[class*='announcementBar'] a {
   margin-right: 0.25rem;
 }
 
-.badge--web    { background: var(--taflex-blue-600); color: white; }
+.badge--web    { background: var(--taflex-yellow-600); color: white; }
 .badge--api    { background: var(--taflex-green);    color: white; }
 .badge--mobile { background: var(--taflex-violet);   color: white; }
 .badge--data   { background: var(--taflex-amber);    color: white; }
@@ -539,7 +539,7 @@ div[class*='announcementBar'] a {
    SELECTION
    =================================================================== */
 ::selection {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(234, 179, 8, 0.2);
   color: inherit;
 }
 

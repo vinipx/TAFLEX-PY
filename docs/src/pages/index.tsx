@@ -38,7 +38,7 @@ function HeroBanner() {
 const capabilityFeatures = [
   {
     badge: 'WEB',
-    color: '#2563eb',
+    color: '#ca8a04',
     title: 'Web Testing (Playwright)',
     description:
       'Playwright-powered browser automation with externalized locators, auto-wait strategies, and cross-browser support out of the box.',
