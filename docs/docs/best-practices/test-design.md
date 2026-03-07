@@ -5,14 +5,15 @@ Even with hierarchical locators, we recommend using the Page Object Model to enc
 
 ```javascript
 class LoginPage:
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self, page):
+        self.username_input = page.locator('#username')
+        self.password_input = page.locator('#password')
+        self.login_button = page.locator('button[type="submit"]')
 
     def login(self, username, password):
-        self.driver.load_locators('login')
-        self.driver.find_element('username_field').fill(username)
-        self.driver.find_element('password_field').fill(password)
-        self.driver.find_element('login_button').click()
+        self.username_input.fill(username)
+        self.password_input.fill(password)
+        self.login_button.click()
 ```
 
 ## Atomic Tests

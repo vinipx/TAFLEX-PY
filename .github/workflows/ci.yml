@@ -35,13 +35,13 @@ jobs:
       run: mypy src/ tests/ || echo "Mypy checks failed but continuing..."
 
     - name: Run unit tests
-      run: pytest tests/unit/
+      run: pytest -n auto tests/unit/
       
     - name: Run API tests
-      run: pytest tests/api/
+      run: pytest -n auto tests/api/
       
     - name: Run Web tests
-      run: pytest tests/web/
+      run: pytest -n auto tests/web/
       
     - name: Run BDD tests
       run: pytest tests/bdd/

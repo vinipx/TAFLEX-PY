@@ -1,17 +1,18 @@
 from appium import webdriver
 from appium.options.common.base import AppiumOptions
 from typing import Any, Optional
-from src.core.drivers.automation_driver import AutomationDriver
-from src.core.locators.locator_manager import locator_manager
+from src.core.drivers.ui_driver import UiDriver
+from src.core.locators.locator_manager import LocatorManager
 from src.core.utils.logger import logger
 from src.core.elements.mobile_element import MobileElement
 from appium.webdriver.common.appiumby import AppiumBy
 
-class AppiumMobileStrategy(AutomationDriver):
+class AppiumMobileStrategy(UiDriver):
     """Mobile automation driver implementation using Appium."""
 
     def __init__(self) -> None:
         self.driver: Optional[webdriver.Remote] = None
+        self.locator_manager = LocatorManager(mode="mobile")
 
     def initialize(self, config: Any) -> webdriver.Remote:
         # Default local Appium server
@@ -36,7 +37,7 @@ class AppiumMobileStrategy(AutomationDriver):
         logger.info(f"Initializing Appium Mobile Strategy via: {appium_server_url}")
         self.driver = webdriver.Remote(appium_server_url, options=options)
         
-        locator_manager.load()
+        self.locator_manager.load()
         return self.driver
 
     def terminate(self) -> None:
@@ -53,7 +54,7 @@ class AppiumMobileStrategy(AutomationDriver):
     def find_element(self, logical_name: str) -> Any:
         if not self.driver:
             raise RuntimeError("Driver not initialized")
-        selector = locator_manager.resolve(logical_name)
+        selector = self.locator_manager.resolve(logical_name)
         
         if selector.startswith('//'):
             strategy = AppiumBy.XPATH
@@ -67,7 +68,7 @@ class AppiumMobileStrategy(AutomationDriver):
         return MobileElement(self.driver, (strategy, selector), logical_name)
 
     def load_locators(self, page_name: str) -> None:
-        locator_manager.load(page_name)
+        self.locator_manager.load(page_name)
 
     def capture_screenshot(self, name: str) -> bytes:
         if not self.driver:

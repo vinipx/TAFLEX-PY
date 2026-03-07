@@ -1,10 +1,7 @@
 import json
 from src.core.locators.locator_manager import LocatorManager
 
-def test_locator_manager_loads_hierarchically(tmp_path, monkeypatch):
-    # Mock config_manager using monkeypatch
-    import src.core.locators.locator_manager as lm
-    
+def test_locator_manager_loads_hierarchically(tmp_path):
     # Create mock locator files
     base_dir = tmp_path / "src" / "resources" / "locators"
     base_dir.mkdir(parents=True)
@@ -20,15 +17,7 @@ def test_locator_manager_loads_hierarchically(tmp_path, monkeypatch):
     page_json = mode_dir / "login.json"
     page_json.write_text(json.dumps({"login_btn": "#page-login", "username": "#user"}))
 
-    class MockConfigManager:
-        def get(self, key):
-            if key == "execution_mode":
-                return "web"
-            return None
-
-    monkeypatch.setattr(lm, "config_manager", MockConfigManager())
-    
-    manager = LocatorManager()
+    manager = LocatorManager(mode="web")
     manager.base_path = base_dir
 
     manager.load("login")

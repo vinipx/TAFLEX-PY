@@ -23,10 +23,8 @@ Use the `driver` fixture to keep your tests clean and focused on business logic.
 ```javascript
 def test_verify_account_balance(web_driver):
     web_driver.navigate_to('/accounts')
-    web_driver.load_locators('accounts')
-    
-    balance = web_driver.find_element('total_balance')
-    assert balance.get_text() == '$1,000.00'
+    page = web_driver.page
+    expect(page.locator('.total-balance')).to_have_text('$1,000.00')
 ```
 
 ## Behavior-Driven Development (BDD)

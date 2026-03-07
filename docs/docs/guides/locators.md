@@ -32,9 +32,8 @@ src/resources/locators/
 def test_login(web_driver):
     web_driver.navigate_to('https://example.com/login')
     
-    # Load page-specific locators
+    # Deprecated: The framework now favors POM over dynamic JSON locators for Web
     web_driver.load_locators('login')
-
     username = web_driver.find_element('username_field')
     username.fill('myuser')
 ```

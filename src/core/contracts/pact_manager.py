@@ -2,26 +2,27 @@ import os
 from pathlib import Path
 from typing import Optional, Callable, Any
 from pact import Pact, Verifier
-from src.config.config_manager import config_manager
+from src.config.config_manager import AppConfig
 
 class PactManager:
     """Manages Pact contract testing lifecycle and interactions using Pact-Python v3+ API."""
 
-    def __init__(self) -> None:
+    def __init__(self, config: AppConfig) -> None:
         self.pact: Optional[Pact] = None
         self.interaction: Any = None
+        self.config = config
 
     @property
     def enabled(self) -> bool:
-        return config_manager.get('pact_enabled')
+        return self.config.pact_enabled
 
     def setup(self, consumer: Optional[str] = None, provider: Optional[str] = None):
         """Sets up a new Pact instance for a consumer-provider pair."""
         if not self.enabled:
             return None
 
-        consumer_name = consumer or config_manager.get('pact_consumer')
-        provider_name = provider or config_manager.get('pact_provider')
+        consumer_name = consumer or self.config.pact_consumer
+        provider_name = provider or self.config.pact_provider
         
         self.pact = Pact(consumer_name, provider_name)
         self.interaction = None
@@ -90,5 +91,3 @@ class PactManager:
         
         # In v3, state_handler can be a function
         return verifier.verify(state_handler=state_handler)
-
-pact_manager = PactManager()

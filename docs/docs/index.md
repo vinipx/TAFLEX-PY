@@ -34,18 +34,13 @@ import allure
 
 @allure.feature('Login')
 def test_should_login_successfully(web_driver):
-    driver = web_driver
-    driver.navigate_to('https://the-internet.herokuapp.com/login')
-    driver.load_locators('login')
+    page = web_driver.page
+    page.goto('https://the-internet.herokuapp.com/login')
 
-    username = driver.find_element('username_field')
-    password = driver.find_element('password_field')
-    login_button = driver.find_element('login_button')
+    page.locator('#username').fill('tomsmith')
+    page.locator('#password').fill('SuperSecretPassword!')
+    page.locator('button[type="submit"]').click()
 
-    username.fill('tomsmith')
-    password.fill('SuperSecretPassword!')
-    login_button.click()
-
-    flash_message = driver.find_element('flash_message')
-    assert 'You logged into a secure area!' in flash_message.get_text()
+    from playwright.sync_api import expect
+    expect(page.locator('#flash')).to_contain_text('You logged into a secure area!')
 ```

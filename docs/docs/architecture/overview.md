@@ -37,7 +37,7 @@ flowchart TB
 
     subgraph "Driver Strategies"
         direction TB
-        ADS[AutomationDriver<br/>Abstract Class]
+        ADS[UiDriver & ApiClient<br/>Protocols]
         PDS[PlaywrightStrategy]
         APIS[PlaywrightApiStrategy]
         HXP[HttpxApiStrategy]
@@ -84,13 +84,17 @@ The Driver Layer implements the **Strategy Pattern**, allowing runtime selection
 
 ```mermaid
 classDiagram
-    class AutomationDriver {
+    class UiDriver {
         <<abstract>>
         +initialize()
         +terminate()
         +navigate_to(str)
-        +find_element(str)
-        +load_locators(str)
+    }
+    class ApiClient {
+        <<abstract>>
+        +initialize()
+        +terminate()
+        +get(str)
     }
 
     class PlaywrightStrategy {
@@ -119,10 +123,10 @@ classDiagram
         +post(str, dict)
     }
 
-    AutomationDriver <|-- PlaywrightStrategy
-    AutomationDriver <|-- PlaywrightApiStrategy
-    AutomationDriver <|-- HttpxApiStrategy
-    AutomationDriver <|-- AppiumMobileStrategy
+    UiDriver <|-- PlaywrightStrategy
+    ApiClient <|-- PlaywrightApiStrategy
+    ApiClient <|-- HttpxApiStrategy
+    UiDriver <|-- AppiumMobileStrategy
 ```
 
 **Key Benefits:**
@@ -184,10 +188,10 @@ sequenceDiagram
     Suite->>FIX: Setup Context
     FIX->>Driver: DriverFactory.create()
     Driver->>Driver: initialize(config)
-    Driver-->>FIX: AutomationDriver
+    Driver-->>FIX: UiDriver / ApiClient
 
     FIX->>Test: Execute test(driver)
-    Test->>Driver: navigate_to(), find_element()
+    Test->>Driver: navigate_to()
     Driver->>Driver: Execute actions
 
     FIX->>Driver: terminate()
@@ -212,7 +216,7 @@ sequenceDiagram
 TAFLEX PY is designed for extension at multiple levels:
 
 ### 1. Custom Driver Strategies
-Simply extend the `AutomationDriver` base class and register it in the `DriverFactory`.
+Simply extend the `UiDriver` or `ApiClient` base classes and register it in the `DriverFactory`.
 
 ### 2. Custom Element Wrappers
 Extend or create new element wrappers to support unique platform interactions while maintaining a consistent API.

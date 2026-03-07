@@ -1,12 +1,13 @@
 import requests
 from datetime import datetime
-from src.config.config_manager import config_manager
+from src.config.config_manager import AppConfig
 from src.core.utils.logger import logger
 
 class XrayService:
     """Service class for interacting with Jira Xray Cloud API."""
 
-    def __init__(self):
+    def __init__(self, config: AppConfig):
+        self.config = config
         self.base_url = 'https://xray.cloud.getxray.app/api/v2'
         self.token = None
 
@@ -14,8 +15,8 @@ class XrayService:
         if self.token:
             return self.token
 
-        client_id = config_manager.get('xray_client_id')
-        client_secret = config_manager.get('xray_client_secret')
+        client_id = self.config.xray_client_id
+        client_secret = self.config.xray_client_secret
 
         try:
             response = requests.post(f"{self.base_url}/authenticate", json={
@@ -30,7 +31,7 @@ class XrayService:
             raise e
 
     def import_execution(self, results: dict):
-        if not config_manager.get('xray_enabled'):
+        if not self.config.xray_enabled:
             return
 
         token = self.authenticate()
@@ -54,10 +55,10 @@ class XrayService:
             "description": "Imported from taflex-py",
         }
 
-        test_plan_key = config_manager.get('xray_test_plan_key')
-        test_exec_key = config_manager.get('xray_test_exec_key')
-        project_key = config_manager.get('xray_project_key')
-        environment = config_manager.get('xray_environment')
+        test_plan_key = self.config.xray_test_plan_key
+        test_exec_key = self.config.xray_test_exec_key
+        project_key = self.config.xray_project_key
+        environment = self.config.xray_environment
 
         if test_plan_key:
             info['testPlanKey'] = test_plan_key
@@ -72,5 +73,3 @@ class XrayService:
             "info": info,
             "tests": test_results
         }
-
-xray_service = XrayService()

@@ -1,17 +1,19 @@
 import pytest
 import requests
-from src.core.contracts.pact_manager import pact_manager
-from src.config.config_manager import config_manager
+from src.core.contracts.pact_manager import PactManager
+from src.config.config_manager import AppConfig
 
 @pytest.fixture(scope='module')
 def pact_setup():
     # Force pact enabled for this test
-    config_manager.config.pact_enabled = True
+    config = AppConfig(pact_enabled=True)
+    pact_manager = PactManager(config)
     pact = pact_manager.setup(consumer='UserConsumer', provider='UserService')
-    return pact
+    return pact_manager, pact
 
 def test_get_user_contract(pact_setup):
     """Verifies the contract for getting a user by ID."""
+    pact_manager, pact = pact_setup
     
     expected_response = {
         'id': 1,

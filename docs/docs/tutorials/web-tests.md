@@ -21,17 +21,16 @@ Create a class to handle interactions in `tests/web/pages/search_page.py`:
 
 ```javascript
 class SearchPage:
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self, page):
+        self.page = page
+        self.search_input = page.locator('input[name="q"]')
 
     def open(self):
-        self.driver.navigate_to('https://www.google.com')
-        self.driver.load_locators('search')
+        self.page.goto('https://www.google.com')
 
     def search_for(self, term):
-        input_element = self.driver.find_element('search_input')
-        input_element.fill(term)
-        self.driver.page.keyboard.press('Enter')
+        self.search_input.fill(term)
+        self.page.keyboard.press('Enter')
 ```
 
 ## 2. Writing the Test Spec

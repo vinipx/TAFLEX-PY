@@ -2,7 +2,7 @@ import json
 import asyncio
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
-from src.config.config_manager import config_manager
+from src.config.config_manager import AppConfig
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -11,7 +11,8 @@ mcp = FastMCP("taflex-py-mcp-server")
 @mcp.resource("taflex://config/current")
 def get_current_config() -> str:
     """Returns the currently active configuration (secrets masked)"""
-    config_dict = config_manager.config.model_dump()
+    config = AppConfig()
+    config_dict = config.model_dump()
     secrets = ['cloud_key', 'rp_api_key', 'xray_client_secret', 'pact_broker_token']
     
     for key in secrets:

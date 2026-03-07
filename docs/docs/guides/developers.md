@@ -5,12 +5,12 @@ This guide is for developers who want to extend TAFLEX PY or integrate it into t
 ## Extending the Framework
 
 ### Adding a New Strategy
-To add support for a new platform, create a new class extending `AutomationDriver` in `src/core/drivers/strategies/`.
+To add support for a new platform, create a new class extending `UiDriver` or `ApiClient` in `src/core/drivers/strategies/`.
 
 ```javascript
-from src.core.drivers.automation_driver import AutomationDriver
+from src.core.drivers.ui_driver import UiDriver
 
-class MyNewStrategy(AutomationDriver):
+class MyNewStrategy(UiDriver):
     # Implement abstract methods
     pass
 ```

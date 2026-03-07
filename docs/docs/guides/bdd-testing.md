@@ -38,21 +38,18 @@ def navigate_to(web_driver, url):
 
 @when(parsers.parse('I enter "{username}" as username and "{password}" as password'))
 def enter_credentials(web_driver, username, password):
-    web_driver.load_locators('login')
-    username_field = web_driver.find_element('username')
-    password_field = web_driver.find_element('password')
-
-    username_field.fill(username)
-    password_field.fill(password)
+    page = web_driver.page
+    page.locator('#username').fill(username)
+    page.locator('#password').fill(password)
 
 @when('I click on the login button')
 def click_login(web_driver):
-    web_driver.find_element('login_btn').click()
+    web_driver.page.locator('button[type="submit"]').click()
 
 @then(parsers.parse('I should see "{expected}" in the header'))
 def verify_header(web_driver, expected):
-    header = web_driver.find_element('header')
-    assert expected in header.get_text()
+    from playwright.sync_api import expect
+    expect(web_driver.page.locator('#flash')).to_contain_text(expected)
 ```
 
 ## Running BDD Tests

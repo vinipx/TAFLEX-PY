@@ -1,10 +1,9 @@
 from typing import Any, Optional
 from playwright.sync_api import sync_playwright, APIRequestContext
-from src.core.drivers.automation_driver import AutomationDriver
-from src.core.locators.locator_manager import locator_manager
+from src.core.drivers.api_client import ApiClient
 from src.core.utils.logger import logger
 
-class PlaywrightApiStrategy(AutomationDriver):
+class PlaywrightApiStrategy(ApiClient):
     """API automation driver implementation using Playwright's APIRequestContext."""
 
     def __init__(self) -> None:
@@ -30,15 +29,6 @@ class PlaywrightApiStrategy(AutomationDriver):
             self.request_context.dispose()
         if self.playwright:
             self.playwright.stop()
-
-    def navigate_to(self, url: str) -> None:
-        pass
-
-    def find_element(self, logical_name: str) -> Any:
-        raise NotImplementedError("find_element() is not applicable for API strategy")
-
-    def load_locators(self, page_name: str) -> None:
-        locator_manager.load(page_name)
 
     def get(self, endpoint: str, **kwargs) -> Any:
         if not self.request_context:
@@ -66,6 +56,3 @@ class PlaywrightApiStrategy(AutomationDriver):
 
     def get_execution_mode(self) -> str:
         return "api"
-
-    def capture_screenshot(self, name: str) -> bytes:
-        raise NotImplementedError("capture_screenshot() is not applicable for API strategy")

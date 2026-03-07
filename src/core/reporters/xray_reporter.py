@@ -1,15 +1,17 @@
 import pytest
 import re
 from datetime import datetime, timezone
-from src.core.reporters.xray_service import xray_service
-from src.config.config_manager import config_manager
+from src.core.reporters.xray_service import XrayService
+from src.config.config_manager import AppConfig
 from src.core.utils.logger import logger
 
 class XrayReporter:
     """Pytest plugin to export test results to Jira Xray."""
 
-    def __init__(self):
-        self.enabled = config_manager.get('xray_enabled')
+    def __init__(self, config: AppConfig):
+        self.config = config
+        self.enabled = config.xray_enabled
+        self.xray_service = XrayService(config)
         self.results = []
         self.test_start_times = {}
 
@@ -60,9 +62,9 @@ class XrayReporter:
                 logger.info("Xray: No tests with Xray keys found. Skipping upload.")
             return
 
-        formatted_results = xray_service.format_results(self.results)
+        formatted_results = self.xray_service.format_results(self.results)
         try:
-            xray_service.import_execution(formatted_results)
+            self.xray_service.import_execution(formatted_results)
         except Exception as e:
             logger.error(f"Xray: Failed to upload results: {str(e)}")
 

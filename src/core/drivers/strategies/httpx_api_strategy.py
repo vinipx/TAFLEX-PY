@@ -1,10 +1,9 @@
 import httpx
 from typing import Any, Optional
-from src.core.drivers.automation_driver import AutomationDriver
-from src.core.locators.locator_manager import locator_manager
+from src.core.drivers.api_client import ApiClient
 from src.core.utils.logger import logger
 
-class HttpxApiStrategy(AutomationDriver):
+class HttpxApiStrategy(ApiClient):
     """API automation driver implementation using Httpx (replacing Axios)."""
 
     def __init__(self) -> None:
@@ -30,15 +29,6 @@ class HttpxApiStrategy(AutomationDriver):
         if self.client:
             self.client.close()
             self.client = None
-
-    def navigate_to(self, url: str) -> None:
-        pass
-
-    def find_element(self, logical_name: str) -> Any:
-        raise NotImplementedError("find_element() is not applicable for API strategy")
-
-    def load_locators(self, page_name: str) -> None:
-        locator_manager.load(page_name)
 
     def get(self, endpoint: str, **kwargs) -> httpx.Response:
         if not self.client:
@@ -66,6 +56,3 @@ class HttpxApiStrategy(AutomationDriver):
 
     def get_execution_mode(self) -> str:
         return "api"
-
-    def capture_screenshot(self, name: str) -> bytes:
-        raise NotImplementedError("capture_screenshot() is not applicable for API strategy")

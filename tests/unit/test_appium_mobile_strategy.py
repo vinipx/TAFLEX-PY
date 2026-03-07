@@ -8,8 +8,8 @@ def mobile_strategy():
     return AppiumMobileStrategy()
 
 @patch('src.core.drivers.strategies.appium_mobile_strategy.webdriver.Remote')
-@patch('src.core.drivers.strategies.appium_mobile_strategy.locator_manager')
-def test_initialize_local_appium(mock_locator_manager, mock_remote, mobile_strategy):
+def test_initialize_local_appium(mock_remote, mobile_strategy):
+    mobile_strategy.locator_manager = Mock()
     mock_config = Mock()
     mock_config.remote_url = 'http://localhost:4723'
     mock_config.cloud_platform = 'local'
@@ -23,7 +23,7 @@ def test_initialize_local_appium(mock_locator_manager, mock_remote, mobile_strat
     assert options.get_capability('platformName') == 'Android'
     assert options.get_capability('appium:automationName') == 'UiAutomator2'
     
-    mock_locator_manager.load.assert_called_once()
+    mobile_strategy.locator_manager.load.assert_called_once()
     assert driver == mock_remote.return_value
     assert mobile_strategy.get_execution_mode() == "mobile"
 
@@ -59,19 +59,19 @@ def test_navigate_to_without_initialization_raises_error(mobile_strategy):
         mobile_strategy.navigate_to('myapp://home')
 
 @patch('src.core.drivers.strategies.appium_mobile_strategy.webdriver.Remote')
-@patch('src.core.drivers.strategies.appium_mobile_strategy.locator_manager')
-def test_find_element(mock_locator_manager, mock_remote, mobile_strategy):
+def test_find_element(mock_remote, mobile_strategy):
+    mobile_strategy.locator_manager = Mock()
     mock_config = Mock()
     mock_config.cloud_platform = 'local'
     mobile_strategy.initialize(mock_config)
 
-    mock_locator_manager.resolve.return_value = '//android.widget.Button[@text="Submit"]'
+    mobile_strategy.locator_manager.resolve.return_value = '//android.widget.Button[@text="Submit"]'
     
     element = mobile_strategy.find_element('submit_button')
     
     assert element.name == 'submit_button'
     assert element.locator_tuple == (By.XPATH, '//android.widget.Button[@text="Submit"]')
-    mock_locator_manager.resolve.assert_called_once_with('submit_button')
+    mobile_strategy.locator_manager.resolve.assert_called_once_with('submit_button')
     # Element is lazy, so find_element on the driver should NOT be called yet
     mock_remote.return_value.find_element.assert_not_called()
     

@@ -5,6 +5,7 @@ from src.core.utils.logger import logger
 @allure.feature('Mobile App')
 @allure.story('Android System Settings')
 @pytest.mark.mobile
+@pytest.mark.skip(reason="Requires a running Appium server")
 def test_android_settings_interaction(mobile_driver):
     """
     Verifies that the framework can interact with a real Android device via USB

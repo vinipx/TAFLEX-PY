@@ -72,13 +72,3 @@ class AppConfig(BaseSettings):
                 attrs.append({'key': key, 'value': value})
         return attrs
 
-class ConfigManager:
-    def __init__(self) -> None:
-        self.config = AppConfig()
-
-    def get(self, key: str) -> any:
-        if key in ('reporters', 'rp_attributes'):
-            return getattr(self.config, key)
-        return getattr(self.config, f"{key}_raw", getattr(self.config, key))
-
-config_manager = ConfigManager()

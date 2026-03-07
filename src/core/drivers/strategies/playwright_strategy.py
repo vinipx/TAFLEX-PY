@@ -1,13 +1,12 @@
 import json
 from urllib.parse import quote
 from typing import Any, Optional
-from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page
-from src.core.drivers.automation_driver import AutomationDriver
-from src.core.locators.locator_manager import locator_manager
-from src.core.elements.playwright_element import PlaywrightElement
+from playwright.sync_api import sync_playwright, Browser, BrowserContext, Page, Locator
+from src.core.drivers.ui_driver import UiDriver
+from src.core.locators.locator_manager import LocatorManager
 from src.core.utils.logger import logger
 
-class PlaywrightDriverStrategy(AutomationDriver):
+class PlaywrightDriverStrategy(UiDriver):
     """Web automation driver implementation using Playwright."""
 
     def __init__(self) -> None:
@@ -15,6 +14,7 @@ class PlaywrightDriverStrategy(AutomationDriver):
         self.browser: Optional[Browser] = None
         self.context: Optional[BrowserContext] = None
         self.page: Optional[Page] = None
+        self.locator_manager = LocatorManager(mode="web")
 
     def initialize(self, config: Any) -> Page:
         browser_name = getattr(config, 'browser', 'chromium')
@@ -51,7 +51,7 @@ class PlaywrightDriverStrategy(AutomationDriver):
         self.context = self.browser.new_context(viewport={'width': 1920, 'height': 1080})
         self.page = self.context.new_page()
 
-        locator_manager.load()
+        self.locator_manager.load()
 
         return self.page
 
@@ -61,15 +61,15 @@ class PlaywrightDriverStrategy(AutomationDriver):
         logger.info(f"Navigating to: {url}")
         self.page.goto(url)
 
-    def find_element(self, logical_name: str) -> PlaywrightElement:
+    def find_element(self, logical_name: str) -> Locator:
         if not self.page:
             raise RuntimeError("Driver not initialized")
-        selector = locator_manager.resolve(logical_name)
+        selector = self.locator_manager.resolve(logical_name)
         locator = self.page.locator(selector)
-        return PlaywrightElement(locator, logical_name)
+        return locator
 
     def load_locators(self, page_name: str) -> None:
-        locator_manager.load(page_name)
+        self.locator_manager.load(page_name)
 
     def terminate(self) -> None:
         if self.browser:
