@@ -8,11 +8,20 @@ def app_config():
     return AppConfig()
 
 def pytest_configure(config):
-    # Retrieve config inside plugin register if needed, or register plugin when testing session starts
-    # XrayReporter needs config. We can pass app_config to XrayReporter if possible, but XrayReporter is registered here.
-    # We might need to initialize it with AppConfig().
     app_config = AppConfig()
     config.pluginmanager.register(XrayReporter(app_config), "xray_reporter")
+    
+    if 'reportportal' in app_config.reporters:
+        # Dynamically enable reportportal
+        setattr(config.option, "rp_enabled", True)
+        if app_config.rp_endpoint:
+            setattr(config.option, "rp_endpoint", str(app_config.rp_endpoint))
+        if app_config.rp_api_key:
+            setattr(config.option, "rp_api_key", app_config.rp_api_key)
+        if app_config.rp_project:
+            setattr(config.option, "rp_project", app_config.rp_project)
+        if app_config.rp_launch:
+            setattr(config.option, "rp_launch", app_config.rp_launch)
 
 @pytest.fixture(scope="function")
 def web_driver(app_config):
