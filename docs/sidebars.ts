@@ -12,7 +12,8 @@ const sidebars = {
       collapsed: false,
       items: [
         "getting-started/quickstart",
-        "getting-started/configuration"
+        "getting-started/configuration",
+        "getting-started/scaffolding-wizard"
       ],
     },
     {
